@@ -17,8 +17,12 @@ class Post extends Model
     protected function image():Attribute
     {
         return new Attribute(
-            /* get: fn() => $this->image_url ? Storage::url($this->image_url) : "https://s.udemycdn.com/course/750x422/placeholder.jpg" */
             get: fn() => $this->image_url ?? "https://s.udemycdn.com/course/750x422/placeholder.jpg"
         );
+    }
+
+    //relacion uno a muchos
+    public function images(){
+        return $this->hasMany(Image::class);
     }
 }

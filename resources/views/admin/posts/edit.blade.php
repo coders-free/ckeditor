@@ -45,11 +45,16 @@
     </div>
 
     @push('js')
-        <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+        <script src="{{asset('vendor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
 
         <script>
             ClassicEditor
-                .create( document.querySelector( '#editor' ) )
+                .create( document.querySelector( '#editor' ), {
+                    simpleUpload: {
+                        // The URL that the images are uploaded to.
+                        uploadUrl: "{{route('image.upload')}}",
+                    }
+                })
                 .catch( error => {
                     console.error( error );
                 } );
