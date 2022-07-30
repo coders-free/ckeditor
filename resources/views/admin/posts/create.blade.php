@@ -16,6 +16,8 @@
 
                 <div class="px-6 py-8">
 
+                    <x-jet-validation-errors class="mb-4" />
+
                     <div class="mb-4">
                         <x-jet-label>
                             Título

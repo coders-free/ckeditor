@@ -16,6 +16,8 @@
 
                 <div class="px-6 py-8">
 
+                    <x-jet-validation-errors class="mb-4" />
+
                     <div class="mb-4">
                         <x-jet-label>
                             Título
@@ -34,7 +36,7 @@
 
                     <div class="flex justify-end">
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Crear artículo
+                            Actualizar artículo
                         </button>
                     </div>
                 </div>
