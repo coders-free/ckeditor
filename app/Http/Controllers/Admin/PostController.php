@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -27,6 +28,18 @@ class PostController extends Controller
 
         $post = Post::create($data);
 
+        $re_extractImages = '/src=["\']([^ ^"^\']*)["\']/ims';
+        preg_match_all($re_extractImages, $data['body'], $matches);
+        $images = $matches[1];
+
+        foreach ($images as $image) {
+            $image_url = 'images/' . pathinfo($image, PATHINFO_BASENAME);
+
+            $post->images()->create([
+                'image_url' => $image_url,
+            ]);
+        }
+
         session()->flash('flash.banner', 'El artículo se creó con éxito');
         session()->flash('flash.bannerStyle', 'success');
 
@@ -44,6 +57,36 @@ class PostController extends Controller
         ]);
 
         $post->update($data);
+
+        $images_antiguas = $post->images->pluck('image_url')->toArray();
+
+        $re_extractImages = '/src=["\']([^ ^"^\']*)["\']/ims';
+        preg_match_all($re_extractImages, $data['body'], $matches);
+        $images_nuevas = $matches[1];
+
+        foreach ($images_nuevas as $image) {
+            $image_url = 'images/' . pathinfo($image, PATHINFO_BASENAME);
+
+            $clave = array_search($image_url, $images_antiguas);
+
+            if ($clave === false) {
+
+                $post->images()->create([
+                    'image_url' => $image_url,
+                ]);
+
+            } else {
+
+                unset($images_antiguas[$clave]);
+
+            }
+        }
+
+        foreach ($images_antiguas as $image) {
+            Storage::delete($image);
+            $post->images()->where('image_url', $image)->delete();
+        }
+
 
         session()->flash('flash.banner', 'El artículo se actualizó con éxito');
         session()->flash('flash.bannerStyle', 'success');
