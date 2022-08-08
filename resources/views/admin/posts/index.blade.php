@@ -22,7 +22,7 @@
                     <div class="grid grid-cols-2 gap-6">
 
                         <figure>
-                            <img class="aspect-[16/9]" src="{{$post->image}}" alt="">
+                            <img class="aspect-[16/9] w-full object-cover object-center" src="{{$post->image}}" alt="">
                         </figure>
 
                         <div>

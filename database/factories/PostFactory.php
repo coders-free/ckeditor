@@ -17,7 +17,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'image_url' => $this->faker->imageUrl(),
+            'image_url' => 'posts/' . $this->faker->image('public/storage/posts', 640, 480, null, false),
             'title' => $this->faker->sentence,
             'body' => $this->faker->paragraph,
         ];
