@@ -11,7 +11,12 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'body',
+        'image_url',
+        'user_id',
+    ];
 
     //Mutadores y accesores
     protected function image():Attribute

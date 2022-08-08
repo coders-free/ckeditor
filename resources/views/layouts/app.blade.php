@@ -15,6 +15,30 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <script src="https://www.google.com/recaptcha/api.js?render=6Le-BUEhAAAAAAgSGFVzuDNL9EcxA4B9xywe006P"></script>
+
+        <script>
+            document.addEventListener('submit', function(e){
+                e.preventDefault();
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6Le-BUEhAAAAAAgSGFVzuDNL9EcxA4B9xywe006P', {action: 'submit'}).then(function(token) {
+                        
+                        let form = e.target;
+
+                        let input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'g-recaptcha-response';
+                        input.value = token;
+
+                        form.appendChild(input);
+
+                        form.submit();
+
+                    });
+                });
+            });
+        </script>
     </head>
     <body class="font-sans antialiased text-gray-700">
         <x-jet-banner />

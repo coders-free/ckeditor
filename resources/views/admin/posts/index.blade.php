@@ -6,6 +6,8 @@
         </h2>
     </x-slot>
 
+
+
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             
@@ -35,6 +37,10 @@
                                 {{Str::limit(strip_tags($post->body), 100)}}
                             </div>
 
+                            <a href="{{route('admin.posts.show', $post)}}" class="mr-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Ver
+                            </a>
+
                             <a href="{{route('admin.posts.edit', $post)}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Editar
                             </a>
@@ -47,4 +53,5 @@
 
         </div>
     </div>
+
 </x-app-layout>

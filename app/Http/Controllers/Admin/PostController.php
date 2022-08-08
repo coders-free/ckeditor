@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -16,14 +17,24 @@ class PostController extends Controller
         return view('admin.posts.index', compact('posts'));
     }
 
+
+    public function show(Post $post){
+
+        return view('admin.posts.show', compact('post'));
+    }
+
+
     public function create(){
         return view('admin.posts.create');
     }
 
+
     public function store(Request $request){
+
         $data = $request->validate([
             'title' => 'required|max:255',
             'body' => 'required',
+            'g-recaptcha-response' => ['required', new \App\Rules\Recaptcha]
         ]);
 
         $post = Post::create($data);
