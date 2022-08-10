@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('title');
             $table->longText('body');
 
+            $table->integer('position');
+
             $table->timestamps();
         });
     }

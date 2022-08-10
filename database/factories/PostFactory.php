@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class PostFactory extends Factory
             'image_url' => 'posts/' . $this->faker->image('public/storage/posts', 640, 480, null, false),
             'title' => $this->faker->sentence,
             'body' => $this->faker->paragraph,
+            'position' => Post::count() + 1,
         ];
     }
 }
